@@ -1,37 +1,51 @@
 import { useState } from "react";
 
 function AddTask({ onAddTaskSubmit }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [nome, setNome] = useState("");
+  const [valor, setValor] = useState("");
+  const [nomeBrincadeira, setNomeBrincadeira] = useState("");
 
   return (
-    <div className="space-y-4 p-6 bg-slate-200 rounded-md shadow flex flex-col">
+    <div className="space-y-4 p-6 bg-green-500 rounded-md shadow flex flex-col">
+      <p>Nome:</p>
       <input
         type="text"
-        placeholder="Digite o título da tarefa"
-        className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md text-black"
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
+        placeholder="Digite seu nome"
+        className="border bg-red-400 border-white-300 outline-red-400 px-4 py-2 rounded-md placeholder-white text-white"
+        value={nome}
+        onChange={(event) => setNome(event.target.value)}
       />
 
+      <p>Valor:</p>
       <input
         type="text"
-        placeholder="Digite a descrição da tarefa"
-        className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md text-black"
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
+        placeholder="Digite o valor até 10 reais"
+        className="border bg-blue-400 border-white-300 outline-blue-400 px-4 py-2 rounded-md placeholder-white text-white"
+        value={valor}
+        onChange={(event) => setValor(event.target.value)}
       />
 
+      <p>Brincadeira:</p>
+      <input
+        type="text"
+        placeholder="Digite o nome da brincadeira"
+        className="border bg-yellow-400 border-white-300 outline-yellow-400 px-4 py-2 rounded-md placeholder-white text-white"
+        value={nomeBrincadeira}
+        onChange={(event) => setNomeBrincadeira(event.target.value)}
+      />
+
+      <p></p>
       <button
-        className="bg-slate-500 text-white px-4 py-2 rounded-md font-medium"
+        className="bg-orange-500 text-white px-4 py-2 rounded-md font-medium"
         onClick={() => {
-          // Verificar se o título e a descrição estão preenchidos
-          if (!title.trim() || !description.trim()) {
-            return alert("Preencha o título e a descrição da tarefa.");
+          // Verificar se todos os campos estão preenchidos
+          if (!nome.trim() || !valor.trim() || !nomeBrincadeira.trim()) {
+            return alert("Preencha o nome, valor e a brincadeira do Dia das Crianças.");
           }
-          onAddTaskSubmit(title, description);
-          setTitle("");
-          setDescription("");
+          onAddTaskSubmit(nome, valor, nomeBrincadeira);
+          setNome("");
+          setValor("");
+          setNomeBrincadeira("");
         }}
       >
         Adicionar

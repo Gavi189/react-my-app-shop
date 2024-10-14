@@ -4,6 +4,8 @@ import Tasks from "@/components/Tasks";
 import AddTask from "@/components/AddTask";
 import { useState, useEffect } from "react";
 import { v4 } from "uuid";
+import Image from "next/image";
+import children from "@/assets/children.png"
 
 function Home() {
   const [tasks, setTasks] = useState([]);
@@ -23,37 +25,36 @@ function Home() {
     }
   }, [tasks]);
 
-  function onTaskClick(taskId) {
-    const newTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return { ...task, isCompleted: !task.isCompleted };
-      }
-      return task;
-    });
-    setTasks(newTasks);
-  }
-
   function onDeleteTaskClick(taskId) {
     const newTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(newTasks);
   }
 
-  function onAddTaskSubmit(title, description) {
+  function onAddTaskSubmit(nome, valor, nomeBrincadeira) {
     const newTask = {
       id: v4(),
-      title: title,
-      description: description,
-      isCompleted: false,
+      nome: nome,
+      valor: valor,
+      nomeBrincadeira: nomeBrincadeira,
     };
     setTasks([...tasks, newTask]);
   }
 
   return (
-    <div className="w-screen h-screen bg-slate-500 flex justify-center p-6">
-      <div className="w-[500px] space-y-4">
-        <h1 className="text-3xl text-slate-100 font-bold text-center">Gerenciador de Tarefas</h1>
+    <div className="w-screen h-screen bg-slate-500 flex justify-center items-center p-6 relative">
+      <div className="absolute inset-0 opacity-30">
+        <Image
+          src={children}
+          alt="children"
+          layout="fill" // Isso garante que a imagem preencha todo o container
+          objectFit="cover" // A imagem será redimensionada para cobrir a tela
+          quality={100} // Mantém uma boa qualidade da imagem
+        />
+      </div>
+      <div className="w-[500px] space-y-4 relative z-10">
+        <h1 className="text-5xl text-slate-100 font-bold text-center">Dia das Crianças</h1>
         <AddTask onAddTaskSubmit={onAddTaskSubmit} />
-        <Tasks tasks={tasks} onTaskClick={onTaskClick} onDeleteTaskClick={onDeleteTaskClick} />
+        <Tasks tasks={tasks}  onDeleteTaskClick={onDeleteTaskClick} />
       </div>
     </div>
   );
